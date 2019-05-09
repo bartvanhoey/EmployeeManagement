@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using EmployeeManagement.Models;
 using EmployeeManagement.Repositories;
+using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
@@ -21,13 +22,8 @@ namespace EmployeeManagement.Controllers
 
         public IActionResult Details()
         {
-//            ViewData["Employee"] = employee;
-//            ViewData["PageTitle"] = "Employee Details";
-//
-//            ViewBag.Employee = employee;
-           ViewBag.PageTitle = "Employee Details";
-
-            return View(_employeeRepository.GetEmployee(1));
+            return View(new HomeDetailsVm
+                {Employee = _employeeRepository.GetEmployee(1), PageTitle = "Employee Details"});
         }
 
         public IActionResult Privacy()

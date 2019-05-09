@@ -1,13 +1,7 @@
+@model EmployeeManagement.ViewModels.HomeDetailsVm
+<h3>@Model.PageTitle</h3>
 
-<h3>@ViewData["PageTitle"]</h3>
-
-@{
-    var employee = ViewData["Employee"] as EmployeeManagement.Models.Employee;
-    
-}
-
-
-<div>Name: @employee?.Name</div>
-<div>Department: @employee?.Department</div>
-<div>Name: @employee?.Email</div>
+<div>Name: @Model.Employee.Name</div>
+<div>Department: @Model?.Employee.Department</div>
+<div>Email: @Model?.Employee.Email</div>
 
