@@ -17,7 +17,7 @@ namespace EmployeeManagement.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_employeeRepository.GetAllEmployees());
         }
 
         public IActionResult Details()

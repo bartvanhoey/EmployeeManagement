@@ -4,7 +4,7 @@ using EmployeeManagement.Models;
 
 namespace EmployeeManagement.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class MockEmployeeRepository : IEmployeeRepository
     {
         private readonly List<Employee> _employees = new List<Employee>()
         {
@@ -14,5 +14,9 @@ namespace EmployeeManagement.Repositories
         };
         
         public Employee GetEmployee(int id) => _employees.FirstOrDefault(x => x.Id == id);
+        public IEnumerable<Employee> GetAllEmployees()
+        {
+            return _employees;
+        }
     }
 }

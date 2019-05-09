@@ -32,7 +32,7 @@ namespace EmployeeManagement
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
+            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
