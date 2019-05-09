@@ -1,18 +1,20 @@
-@model object
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+@model EmployeeManagement.Models.Employee
 
 <html>
 <head>
-    <title>title</title>
+    <title>@ViewBag.PageTitle</title>
 </head>
 <body>
-<div>
-      hello
-</div>
+<h3>@ViewBag.PageTitle</h3>
+<br>
+
+
+<div>Name: @Model.Name</div>
+<br>
+
+<div>Email: @Model.Email</div>
+<br>
+<div>Department: @Model.Department</div>
+
 </body>
 </html>

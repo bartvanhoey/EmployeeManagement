@@ -13,6 +13,7 @@ namespace EmployeeManagement.Controllers
         {
             _employeeRepository = employeeRepository;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -20,12 +21,13 @@ namespace EmployeeManagement.Controllers
 
         public IActionResult Details()
         {
-            var employee = _employeeRepository.GetEmployee(1);
+//            ViewData["Employee"] = employee;
+//            ViewData["PageTitle"] = "Employee Details";
+//
+//            ViewBag.Employee = employee;
+           ViewBag.PageTitle = "Employee Details";
 
-            ViewData["Employee"] = employee;
-            ViewData["PageTitle"] = "Employee Details";
-            
-            return View();
+            return View(_employeeRepository.GetEmployee(1));
         }
 
         public IActionResult Privacy()
