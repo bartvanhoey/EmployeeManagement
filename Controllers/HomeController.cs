@@ -20,7 +20,7 @@ namespace EmployeeManagement.Controllers
             return View(_employeeRepository.GetAllEmployees());
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
             return View(new HomeDetailsVm
                 {Employee = _employeeRepository.GetEmployee(1), PageTitle = "Employee Details"});
