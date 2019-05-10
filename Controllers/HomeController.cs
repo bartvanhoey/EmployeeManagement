@@ -22,7 +22,7 @@ namespace EmployeeManagement.Controllers
 
         public IActionResult Details(int id)
         {
-            return View(new HomeDetailsVm
+            return View(new HomeDetailsViewModel
                 {Employee = _employeeRepository.GetEmployee(1), PageTitle = "Employee Details"});
         }
 
