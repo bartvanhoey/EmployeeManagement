@@ -23,7 +23,7 @@ namespace EmployeeManagement.Controllers
         public IActionResult Details(int id)
         {
             return View(new HomeDetailsViewModel
-                {Employee = _employeeRepository.GetEmployee(1), PageTitle = "Employee Details"});
+                {Employee = _employeeRepository.GetEmployee(id), PageTitle = "Employee Details"});
         }
 
         public IActionResult Privacy()
@@ -37,9 +37,17 @@ namespace EmployeeManagement.Controllers
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
 
-        public IActionResult Create()
+        [HttpGet]
+        public ViewResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Create(Employee newEmployee)
+        {
+            var employee = _employeeRepository.Add(newEmployee);
+            return RedirectToAction("Details", new {id = employee.Id});
         }
     }
 }
