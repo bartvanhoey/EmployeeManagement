@@ -26,5 +26,26 @@ namespace EmployeeManagement.Repositories
             _employees.Add(employee);
             return employee;
         }
+
+        public Employee UPdate(Employee employeeChanges)
+        {
+            var employee = _employees.FirstOrDefault(x => x.Id == employeeChanges.Id);
+            if (employee == null) return null;
+            employee.Name = employeeChanges.Name;
+            employee.Email = employeeChanges.Email;
+            employee.Department = employeeChanges.Department;
+
+            return employee;
+
+        }
+
+        public Employee Delete(int id)
+        {
+            var employee = _employees.FirstOrDefault(x => x.Id == id);
+            if (employee != null)
+                _employees.Remove(employee);
+
+            return employee;
+        }
     }
 }

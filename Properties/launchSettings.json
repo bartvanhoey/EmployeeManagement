@@ -18,7 +18,7 @@
     "EmployeeManagement": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:4200;http://localhost:4201",
+      "applicationUrl": "https://localhost:4201;http://localhost:4200",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

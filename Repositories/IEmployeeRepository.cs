@@ -8,5 +8,7 @@ namespace EmployeeManagement.Repositories
         Employee GetEmployee(int id);
         IEnumerable<Employee> GetAllEmployees();
         Employee Add(Employee employee);
+        Employee UPdate(Employee employeeChanges);
+        Employee Delete(int id);
     }
 }
