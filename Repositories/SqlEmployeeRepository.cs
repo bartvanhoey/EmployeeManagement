@@ -5,29 +5,40 @@ namespace EmployeeManagement.Repositories
 {
     public class SqlEmployeeRepository : IEmployeeRepository
     {
-        public Employee GetEmployee(int id)
+        private readonly AppDbContext _context;
+
+        public SqlEmployeeRepository(AppDbContext context)
         {
-            throw new System.NotImplementedException();
+            _context = context;
         }
 
-        public IEnumerable<Employee> GetAllEmployees()
-        {
-            throw new System.NotImplementedException();
-        }
+        public Employee GetEmployee(int id) => _context.Employees.Find(id);
+
+
+        public IEnumerable<Employee> GetAllEmployees() => _context.Employees;
 
         public Employee Add(Employee employee)
         {
-            throw new System.NotImplementedException();
+            _context.Employees.Add(employee);
+            _context.SaveChanges();
+            return employee;
         }
 
-        public Employee UPdate(Employee employeeChanges)
+        public Employee Update(Employee employeeChanges)
         {
-            throw new System.NotImplementedException();
+          var employee = _context.Employees.Attach(employeeChanges);
+          employee.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+         _context.SaveChanges();
+         return employeeChanges;
         }
 
         public Employee Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var employee = _context.Employees.Find(id);
+            if (employee == null) return null;
+            _context.Remove(employee);
+            _context.SaveChanges();
+            return employee;
         }
     }
 }
