@@ -55,16 +55,25 @@ namespace EmployeeManagement.Controllers
 
             string uniqueFileName = null;
 
-            if (model.Photo != null && !String.IsNullOrWhiteSpace(model.Photo.FileName))
+            if (model.Photos != null && model.Photos.Count > 0)
             {
-                var imagesFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                var filePath = Path.Combine(imagesFolder, uniqueFileName);
-                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                foreach (var photo in model.Photos)
+                {
+                    if (!String.IsNullOrWhiteSpace(photo.FileName))
+                    {
+                        var imagesFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        var filePath = Path.Combine(imagesFolder, uniqueFileName);
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    }
+
+                    
+                }
 
             }
-
-            var newEmployee = new Employee {
+          var newEmployee = new Employee
+            {
                 Name = model.Name,
                 Department = model.Department,
                 Email = model.Email,
@@ -72,6 +81,8 @@ namespace EmployeeManagement.Controllers
             };
 
             var employee = _employeeRepository.Add(newEmployee);
+
+            
             return RedirectToAction("Details", new { id = employee.Id });
 
         }
