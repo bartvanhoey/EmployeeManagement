@@ -55,24 +55,16 @@ namespace EmployeeManagement.Controllers
 
             string uniqueFileName = null;
 
-            if (model.Photos != null && model.Photos.Count > 0)
+            if (model.Photo != null && !String.IsNullOrWhiteSpace(model.Photo.FileName))
             {
-
-                foreach (var photo in model.Photos)
-                {
-                    if (!String.IsNullOrWhiteSpace(photo.FileName))
-                    {
-                        var imagesFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
-                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
-                        var filePath = Path.Combine(imagesFolder, uniqueFileName);
-                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
-                    }
-
-                    
-                }
+                var imagesFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                var filePath = Path.Combine(imagesFolder, uniqueFileName);
+                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
 
             }
-          var newEmployee = new Employee
+
+            var newEmployee = new Employee
             {
                 Name = model.Name,
                 Department = model.Department,
@@ -81,10 +73,34 @@ namespace EmployeeManagement.Controllers
             };
 
             var employee = _employeeRepository.Add(newEmployee);
-
-            
             return RedirectToAction("Details", new { id = employee.Id });
 
         }
+
+
+        [HttpGet]
+        public ViewResult Edit(int id)
+        {
+            var employee = _employeeRepository.GetEmployee(id);
+            var employeeEditViewModel = new EmployeeEditViewModel
+            {
+                Department = employee.Department,
+                Id = employee.Id,
+                Email = employee.Email,
+                ExistingPhotoPath = employee.PhotoPath,
+                Name = employee.Name
+            };
+            return View(employeeEditViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EmployeeEditViewModel model)
+        {
+            if (!ModelState.IsValid) return View();
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
