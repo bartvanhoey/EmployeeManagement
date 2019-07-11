@@ -17,5 +17,5 @@ public class EmployeeCreateViewModel
     [Required]
     public Dept? Department { get; set; }
     
-    public List<IFormFile> Photos { get; set; }
+    public IFormFile Photo { get; set; }
 }
