@@ -25,10 +25,20 @@ namespace EmployeeManagement.Controllers
             return View(_employeeRepository.GetAllEmployees());
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
+            var employee =_employeeRepository.GetEmployee(id.Value);
+            if (employee == null)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id.Value);
+            }
+
             return View(new HomeDetailsViewModel
-            { Employee = _employeeRepository.GetEmployee(id), PageTitle = "Employee Details" });
+            {
+                Employee = employee,
+                PageTitle = "Employee Details"
+            });
         }
 
         public IActionResult Privacy()

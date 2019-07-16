@@ -1,0 +1,19 @@
+@model int
+
+@{
+    ViewData["Title"] = "404 Error";
+}
+<!-- <h1>@ViewData["Title"]</h1> -->
+
+<div class="alert alert-danger mt-1 mb-1" role="alert" >
+    <strong>404 Not Found Error</strong>
+    <hr>
+    <h5>
+        Employee with Id = @Model cannot be found
+    </h5>
+</div>
+
+<a asp-action="Index" asp-controller="Home" class="btn btn-outline-success" style="width:auto">
+    Click here to see the list of all employees
+</a>
+
