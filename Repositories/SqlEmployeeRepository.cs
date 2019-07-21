@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using EmployeeManagement.Models;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Repositories
 {
@@ -7,12 +8,25 @@ namespace EmployeeManagement.Repositories
     {
         private readonly AppDbContext _context;
 
-        public SqlEmployeeRepository(AppDbContext context)
+        private readonly ILogger<SqlEmployeeRepository> _logger;
+
+        public SqlEmployeeRepository(AppDbContext context, ILogger<SqlEmployeeRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        public Employee GetEmployee(int id) => _context.Employees.Find(id);
+        public Employee GetEmployee(int id) {
+
+      _logger.LogTrace("Trace Log");
+            _logger.LogDebug("Debug Log");
+            _logger.LogInformation("Information Log");
+            _logger.LogWarning("Warning Log");
+            _logger.LogError("Error Log");
+            _logger.LogCritical("Critical Log");
+
+             return _context.Employees.Find(id);
+        }
 
 
         public IEnumerable<Employee> GetAllEmployees() => _context.Employees;
