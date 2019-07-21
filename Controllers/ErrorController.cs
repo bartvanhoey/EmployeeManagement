@@ -28,6 +28,14 @@ namespace EmployeeManagement.Controllers
                     _logger.LogWarning($"404 Error occured. Path = {statusCodeResult.OriginalPath}" +
                         $" and QueryString = {statusCodeResult.OriginalQueryString}");
                     break;
+
+                     case 405:
+                    ViewBag.ErrorMessage = "Sorry, the resource you requested, could not be found";
+                    // ViewBag.Path = statusCodeResult.OriginalPath;
+                    // ViewBag.QueryString = statusCodeResult.OriginalQueryString;
+                    _logger.LogWarning($"405 Error occured. Path = {statusCodeResult.OriginalPath}" +
+                        $" and QueryString = {statusCodeResult.OriginalQueryString}");
+                    break;
             }
 
             return View("NotFound");
