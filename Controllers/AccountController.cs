@@ -24,25 +24,40 @@ namespace EmployeeManagement.Controllers
             return View();
         }
 
+          [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser{
+                var user = new IdentityUser
+                {
                     UserName = model.Email,
                     Email = model.Email
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);    
+                var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent:false);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
-                else {
+                else
+                {
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError("", error.Description);
