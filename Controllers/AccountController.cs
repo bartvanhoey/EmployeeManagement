@@ -44,8 +44,11 @@ namespace EmployeeManagement.Controllers
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(returnUrl))
+                    // to prevent Open Redirect Attacks
+                    // instead of LocalRedirect(returnUrl) use Url.IsLocalUrl 
+                    // if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
-                        return Redirect(returnUrl);
+                        return LocalRedirect(returnUrl);
                     }
                     return RedirectToAction("index", "home");
                 }
