@@ -255,6 +255,9 @@ pub/
 /src/Web/WebMVC/Properties/PublishProfiles/publish-module.psm1
 /src/Services/Identity/eShopOnContainers.Identity/Properties/launchSettings.json
 
-#Ignore marker-file used to know which docker files we have.
+# Ignore marker-file used to know which docker files we have.
 .eshopdocker_*
 \.vscode/
+
+# exclude client side jquery-validate
+wwwroot/lib/jquery-validate*
