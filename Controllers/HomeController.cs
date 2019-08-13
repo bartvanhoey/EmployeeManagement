@@ -7,28 +7,33 @@ using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
+    // [Authorize]
     public class HomeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IHostingEnvironment _hostingEnvironment;
-         private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
-         public HomeController(IEmployeeRepository employeeRepository, IHostingEnvironment hostingEnvironment, ILogger<HomeController> logger)
-       // public HomeController(IEmployeeRepository employeeRepository, IHostingEnvironment hostingEnvironment)
+        public HomeController(IEmployeeRepository employeeRepository, IHostingEnvironment hostingEnvironment, ILogger<HomeController> logger)
+        // public HomeController(IEmployeeRepository employeeRepository, IHostingEnvironment hostingEnvironment)
         {
             _employeeRepository = employeeRepository;
             _hostingEnvironment = hostingEnvironment;
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(_employeeRepository.GetAllEmployees());
         }
 
+
+        [AllowAnonymous]
         public IActionResult Details(int? id)
         {
             // throw new Exception("Error in Details View");
@@ -40,7 +45,7 @@ namespace EmployeeManagement.Controllers
             _logger.LogError("Error Log");
             _logger.LogCritical("Critical Log");
 
-            var employee =_employeeRepository.GetEmployee(id.Value);
+            var employee = _employeeRepository.GetEmployee(id.Value);
             if (employee == null)
             {
                 Response.StatusCode = 404;
@@ -64,6 +69,7 @@ namespace EmployeeManagement.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
 
         [HttpGet]
         public ViewResult Create()
@@ -90,7 +96,6 @@ namespace EmployeeManagement.Controllers
             return RedirectToAction("Details", new { id = employee.Id });
 
         }
-
 
         [HttpGet]
         public ViewResult Edit(int id)
